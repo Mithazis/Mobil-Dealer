@@ -98,6 +98,8 @@ export default function KoleksiPage() {
             <option value="Jeep">Jeep</option>
             <option value="Mercedes">Mercedes</option>
             <option value="Toyota">Toyota</option>
+            <option value="Hyundai">Hyundai</option>
+            <option value="Nissan">Nissan</option>
           </select>
 
           <select
