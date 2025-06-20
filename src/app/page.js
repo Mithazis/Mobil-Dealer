@@ -32,7 +32,7 @@ export default function HomePage() {
     </p>
     <WhatsAppButton
       nomor="6282117774545"
-      pesan="Halo, saya tertarik ingin tanya seputar mobil yang tersedia di DealerMobil."
+      pesan="Halo, saya tertarik ingin tanya seputar mobil yang tersedia di Dealer Mobil Non."
     />
   </div>
   </section>
@@ -43,7 +43,7 @@ export default function HomePage() {
             Kenapa memilih kami?
           </h2>
           <p className="text-gray-600 mb-6">
-            DealerMobil adalah tempat terbaik untuk mendapatkan mobil idaman Anda dengan harga bersaing, proses cepat, dan layanan terpercaya.
+            Dealer Mobil Non adalah tempat terbaik untuk mendapatkan mobil idaman Anda dengan harga bersaing, proses cepat, dan layanan terpercaya.
           </p>
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 mt-8">
             <div className="bg-white p-6 rounded-xl shadow text-left">

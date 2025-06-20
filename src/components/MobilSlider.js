@@ -6,22 +6,24 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
-export default function MobilSlider({ images }) {
+export default function MobilSlider({ images, onImageClick }) {
   return (
-    <div className="w-full rounded-2xl overflow-hidden shadow-lg">
+    <div className="w-full max-h-[400px] overflow-hidden rounded-xl">
       <Swiper
-        modules={[Navigation, Pagination]}
+        spaceBetween={10}
+        slidesPerView={1}
         navigation
         pagination={{ clickable: true }}
-        loop={true}
-        className="w-full h-64 sm:h-80 lg:h-[28rem]"
+        modules={[Navigation, Pagination]}
+        className="rounded-xl"
       >
         {images.map((src, i) => (
           <SwiperSlide key={i}>
             <img
               src={src}
-              alt={`Mobil ${i + 1}`}
-              className="w-full h-full object-cover"
+              alt={`Foto ${i + 1}`}
+              onClick={() => onImageClick?.(i)}
+              className="w-full h-[400px] object-cover object-center cursor-pointer hover:brightness-90 transition"
             />
           </SwiperSlide>
         ))}

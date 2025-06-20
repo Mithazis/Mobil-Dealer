@@ -3,7 +3,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata = {
-  title: 'Dealer Mobil | Mobil Impian Anda',
+  title: 'Dealer Mobil Non | Mobil Impian Anda',
   description: 'Website jual beli mobil modern, profesional, dan terpercaya.'
 }
 
