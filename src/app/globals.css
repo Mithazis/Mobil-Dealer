@@ -5,6 +5,10 @@
   --foreground: #171717;
 }
 
+input, select {
+  color: #1f2937; /* Tailwind's gray-800 */
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

@@ -16,6 +16,7 @@ Tampil beda dan dominan di setiap jalanan bersama BMW M4 Coupe 2022. Desain agre
 
 📃 NOTE
 Buka : 2.150.000.000
+Minat Serius Bisa Hub Langsung TLP/Wa 082117774545
 
 Bukan cuma mobil, tapi simbol performa dan prestise.
 yang serius langsung amankan sekarang juga!`,
@@ -52,6 +53,7 @@ yang serius langsung amankan sekarang juga!`,
 
 📃 NOTE
 Buka : 885.000.000
+Minat Serius Bisa Hub Langsung TLP/Wa 082117774545
 
 Bukan sekadar mobil, tapi gaya hidup para penjelajah.
 Segera miliki sebelum direbut yang lain!`,
@@ -87,6 +89,7 @@ Segera miliki sebelum direbut yang lain!`,
 
 📃 NOTE
 Cash : 575.000.000 Nego
+Minat Serius Bisa Hub Langsung TLP/Wa 082117774545
 
 Pilihan tepat untuk Anda yang ingin tampil beda dan berkelas.
 Jangan lewatkan kesempatan punya mobil impian ini!`,
@@ -121,6 +124,7 @@ Jangan lewatkan kesempatan punya mobil impian ini!`,
 
 📃 NOTE
 Buka : 115.000.000
+Minat Serius Bisa Hub Langsung TLP/Wa 082117774545
 
 Tampil keren, jalan makin percaya diri!
 Langsung cek unitnya sebelum keburu sold!`,
@@ -148,6 +152,7 @@ Langsung cek unitnya sebelum keburu sold!`,
 🔥 Interior simpel tapi fungsional
 🔥 Tahun muda, siap pakai tanpa banyak pikir
 🔥 Kilometer : 13 rb
+Minat Serius Bisa Hub Langsung TLP/Wa 082117774545
 
 Mobil ini bukan cuma gaya, tapi gaya hidup.
 Siap jadi pusat perhatian dan andalan di segala rute!`,
@@ -188,6 +193,7 @@ deskripsi: `Hyundai Creta Prime NIK 2024 hadir dengan desain stylish, teknologi 
 🏷️ Harga Kredit : 320.000.000 net  
 * Paket DP minim  
 * Proses dibantu sampai ACC
+Minat Serius Bisa Hub Langsung TLP/Wa 082117774545
 
 Mobil kekinian dengan segudang fitur cerdas.  
 Bawa pulang sekarang dan rasakan sensasinya!`,
