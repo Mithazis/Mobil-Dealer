@@ -200,7 +200,6 @@ Bawa pulang sekarang dan rasakan sensasinya!`,
     gambar: [
       '/images/hyundai-creta-prime-2024/hyundai.jpg',
       '/images/hyundai-creta-prime-2024/1.jpg',
-      '/images/hyundai-creta-prime-2024/2.jpg',
       '/images/hyundai-creta-prime-2024/3.jpg',
       '/images/hyundai-creta-prime-2024/4.jpg',
       '/images/hyundai-creta-prime-2024/5.jpg',
