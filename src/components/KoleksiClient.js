@@ -67,6 +67,7 @@ export default function KoleksiClient() {
   const tahunList = Array.from({ length: 2025 - 2010 + 1 }, (_, i) => 2025 - i)
 
   return (
+    <div className="min-h-screen bg-white">
     <>
       <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
         Koleksi Mobil Kami
@@ -207,5 +208,6 @@ export default function KoleksiClient() {
         </div>
       )}
     </>
+    </div>
   )
 }
