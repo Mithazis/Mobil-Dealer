@@ -1,9 +1,8 @@
-export default function generateWaLink(mobil) {
-  const domain = 'https://dealer-mobil-non.vercel.app' // domain kamu
-  const urlMobil = `${domain}/mobil/${mobil.id}`
-  const image = `${domain}${mobil.gambar[0]}`
+// utils/generateWaLink.js
 
-  const pesan = `Halo, saya tertarik dengan mobil berikut:\n\n${mobil.nama}\n${urlMobil}\n\n(Foto mobil: ${image})`
+export default function generateWaLink({ namaMobil, fotoMobil, linkMobil }) {
+  const nomor = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '6282117774545' // fallback jika env belum disetel
 
-  return `https://wa.me/${mobil.whatsapp}?text=${encodeURIComponent(pesan)}`
+  const pesan = `Halo, saya tertarik dengan mobil *${namaMobil}*.%0A%0A📸 Lihat gambar: ${fotoMobil}%0A🔗 Detail: ${linkMobil}`
+  return `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`
 }

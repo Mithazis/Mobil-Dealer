@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import MobilSlider from './MobilSlider'
 import WhatsAppButton from './WhatsAppButton'
 import formatRupiah from '@/utils/formatRupiah'
@@ -10,6 +10,13 @@ import CustomLightbox from './CustomLightbox'
 export default function MobilDetailClient({ mobil }) {
   const [isOpen, setIsOpen] = useState(false)
   const [index, setIndex] = useState(0)
+  const [currentUrl, setCurrentUrl] = useState('')
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setCurrentUrl(window.location.href)
+    }
+  }, [])
 
   const handleImageClick = (i) => {
     setIndex(i)
@@ -17,21 +24,25 @@ export default function MobilDetailClient({ mobil }) {
   }
 
   const formatGambar = (url) => {
-  if (!url || typeof url !== 'string') return '/placeholder.png'
-  try {
-    return url.startsWith('http')
-      ? new URL(url).href
-      : `https://drive.google.com/uc?id=${url}`
-  } catch {
-    return '/placeholder.png'
+    if (!url || typeof url !== 'string') return '/placeholder.png'
+    try {
+      return url.startsWith('http')
+        ? new URL(url).href
+        : `https://drive.google.com/uc?id=${url}`
+    } catch {
+      return '/placeholder.png'
+    }
   }
-}
 
-const gambarFormatted = Array.isArray(mobil.gambar)
-  ? mobil.gambar.map(formatGambar).filter(Boolean)
-  : ['/placeholder.png']
+  const gambarFormatted = Array.isArray(mobil.gambar)
+    ? mobil.gambar.map(formatGambar).filter(Boolean)
+    : ['/placeholder.png']
 
-  const waLink = generateWaLink(mobil)
+  const waLink = generateWaLink({
+    namaMobil: mobil.nama,
+    fotoMobil: gambarFormatted[0],
+    linkMobil: currentUrl,
+  })
 
   return (
     <main className="min-h-screen px-4 py-10 bg-white">
@@ -49,7 +60,11 @@ const gambarFormatted = Array.isArray(mobil.gambar)
           </div>
         </div>
 
-        <WhatsAppButton link={waLink} />
+        <WhatsAppButton
+          namaMobil={mobil.nama}
+          fotoMobil={gambarFormatted[0]}
+          linkMobil={currentUrl}
+        />
       </div>
 
       {isOpen && (

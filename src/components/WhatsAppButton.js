@@ -1,13 +1,16 @@
-export default function WhatsAppButton({ link, nomor, pesan }) {
-  // Kalau ada link langsung, pakai itu
-  const finalLink = link || `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`
+'use client'
+
+import generateWaLink from '@/utils/generateWaLink'
+
+export default function WhatsAppButton({ namaMobil, fotoMobil, linkMobil }) {
+  const waLink = generateWaLink({ namaMobil, fotoMobil, linkMobil })
 
   return (
     <a
-      href={finalLink}
+      href={waLink}
       target="_blank"
       rel="noopener noreferrer"
-      className="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-xl transition inline-block text-center"
+      className="inline-block bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600 transition"
     >
       Tanya via WhatsApp
     </a>
