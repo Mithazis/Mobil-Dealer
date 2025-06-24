@@ -1,17 +1,63 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
 import MobilCard from '@/components/MobilCard'
-import mobilData from '@/data/mobil'
 import formatRupiah from '@/utils/formatRupiah'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function KoleksiPage() {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+
+  // Ambil query dari URL
+  const page = parseInt(searchParams.get('page') || '1')
+  const [mobilData, setMobilData] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [totalPages, setTotalPages] = useState(1)
+
+  // Filter state
   const [keyword, setKeyword] = useState('')
   const [kategori, setKategori] = useState('All')
   const [merk, setMerk] = useState('All')
   const [tahun, setTahun] = useState('All')
   const [rangeHarga, setRangeHarga] = useState('All')
+
+  useEffect(() => {
+    const fetchMobil = async () => {
+      setLoading(true)
+
+      // Bangun URL query
+      const query = new URLSearchParams()
+      query.append('page', page)
+      query.append('limit', 9)
+      if (keyword) query.append('keyword', keyword)
+      if (kategori !== 'All') query.append('tipe', kategori)
+      if (merk !== 'All') query.append('merk', merk)
+      if (tahun !== 'All') query.append('tahun', tahun)
+      if (rangeHarga !== 'All') query.append('harga', rangeHarga)
+
+      try {
+        const res = await fetch(`/api/mobil?${query.toString()}`)
+        const json = await res.json()
+        setMobilData(json.data || [])
+        setTotalPages(json.totalPages || 1)
+      } catch (err) {
+        console.error('Gagal ambil data mobil:', err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchMobil()
+  }, [page, keyword, kategori, merk, tahun, rangeHarga])
+
+  const handlePageChange = (newPage) => {
+    const params = new URLSearchParams()
+    params.set('page', newPage)
+    router.push(`?${params.toString()}`)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const resetFilter = () => {
     setKeyword('')
@@ -20,40 +66,6 @@ export default function KoleksiPage() {
     setTahun('All')
     setRangeHarga('All')
   }
-
-  const filteredMobil = mobilData.filter((mobil) => {
-    const cocokKeyword =
-      mobil.nama.toLowerCase().includes(keyword.toLowerCase()) ||
-      mobil.deskripsi.toLowerCase().includes(keyword.toLowerCase())
-
-    const cocokKategori =
-      kategori === 'All' || mobil.tipe.toLowerCase() === kategori.toLowerCase()
-
-    const cocokMerk =
-      merk === 'All' || mobil.merk.toLowerCase() === merk.toLowerCase()
-
-    const cocokTahun =
-      tahun === 'All' || mobil.tahun === parseInt(tahun)
-
-    let cocokRange = true
-    if (rangeHarga === '0-500') {
-      cocokRange = mobil.harga <= 500_000_000
-    } else if (rangeHarga === '500-1000') {
-      cocokRange = mobil.harga > 500_000_000 && mobil.harga <= 1_000_000_000
-    } else if (rangeHarga === '1000-2000') {
-      cocokRange = mobil.harga > 1_000_000_000 && mobil.harga <= 2_000_000_000
-    } else if (rangeHarga === '2000+') {
-      cocokRange = mobil.harga > 2_000_000_000
-    }
-
-    return (
-      cocokKeyword &&
-      cocokKategori &&
-      cocokMerk &&
-      cocokTahun &&
-      cocokRange
-    )
-  })
 
   const tahunList = Array.from({ length: 2025 - 2010 + 1 }, (_, i) => 2025 - i)
 
@@ -86,6 +98,9 @@ export default function KoleksiPage() {
             <option value="SUV">SUV</option>
             <option value="Sedan">Sedan</option>
             <option value="MPV">MPV</option>
+            <option value="Coupe">Coupe</option>
+            <option value="Pickup">Pickup</option>
+            <option value="Jeep">Jeep</option>
           </select>
 
           <select
@@ -100,6 +115,8 @@ export default function KoleksiPage() {
             <option value="Toyota">Toyota</option>
             <option value="Hyundai">Hyundai</option>
             <option value="Nissan">Nissan</option>
+            <option value="Rush">Rush</option>
+            <option value="Daihatsu">Daihatsu</option>
           </select>
 
           <select
@@ -122,7 +139,7 @@ export default function KoleksiPage() {
             <option value="0-500">0 - 500 juta</option>
             <option value="500-1000">500 juta - 1 M</option>
             <option value="1000-2000">1 M - 2 M</option>
-            <option value="2000+">&gt; 2 M</option>
+            <option value="2000+">2 M</option>
           </select>
 
           <button
@@ -134,15 +151,17 @@ export default function KoleksiPage() {
         </div>
 
         {/* Hasil Mobil */}
-        {filteredMobil.length > 0 ? (
+        {loading ? (
+          <p className="text-center text-gray-500">Loading data mobil...</p>
+        ) : mobilData.length > 0 ? (
           <AnimatePresence mode="wait">
             <motion.div
               layout
               className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
             >
-              {filteredMobil.map((mobil, index) => (
+              {mobilData.map((mobil, index) => (
                 <motion.div
-                  key={mobil.id}
+                  key={mobil._id}
                   layout
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -165,6 +184,31 @@ export default function KoleksiPage() {
           <p className="text-center text-gray-500">
             Tidak ada mobil yang cocok dengan filter kamu.
           </p>
+        )}
+
+        {/* Pagination */}
+        {!loading && totalPages > 1 && (
+          <div className="flex justify-center gap-4 mt-10">
+            {page > 1 && (
+              <button
+                onClick={() => handlePageChange(page - 1)}
+                className="px-4 py-2 bg-gray-200 rounded-xl hover:bg-gray-300"
+              >
+                &larr; Previous
+              </button>
+            )}
+            <span className="px-4 py-2 font-semibold">
+              Page {page} of {totalPages}
+            </span>
+            {page < totalPages && (
+              <button
+                onClick={() => handlePageChange(page + 1)}
+                className="px-4 py-2 bg-gray-200 rounded-xl hover:bg-gray-300"
+              >
+                Next &rarr;
+              </button>
+            )}
+          </div>
         )}
       </div>
     </main>
