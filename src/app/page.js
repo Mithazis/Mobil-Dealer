@@ -48,10 +48,7 @@ export default function HomePage() {
             Tim kami siap membantu kamu menemukan mobil yang tepat.
           </p>
           <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.2 }}>
-            <WhatsAppButton
-              nomor="6282117774545"
-              pesan="Halo, saya tertarik ingin tanya seputar mobil yang tersedia di Dealer Mobil Non."
-            />
+            <WhatsAppButton mode="homepage" />
           </motion.div>
         </motion.div>
       </section>

@@ -1,8 +1,20 @@
-// utils/generateWaLink.js
+export default function generateWaLink({ namaMobil, fotoMobil, linkMobil, customMessage } = {}) {
+  const phoneNumber = '6282117774545'
 
-export default function generateWaLink({ namaMobil, fotoMobil, linkMobil }) {
-  const nomor = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '6282117774545' // fallback jika env belum disetel
+  let message = ''
 
-  const pesan = `Halo, saya tertarik dengan mobil *${namaMobil}*.%0A%0A📸 Lihat gambar: ${fotoMobil}%0A🔗 Detail: ${linkMobil}`
-  return `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`
+  if (customMessage) {
+    message = customMessage
+  } else if (namaMobil && linkMobil) {
+    message =
+      `Halo, saya tertarik dengan mobil berikut:\n\n` +
+      `🚘 ${namaMobil}\n` +
+      (fotoMobil ? `🖼️ Foto: ${fotoMobil}\n` : '') +
+      `🔗 Link: ${linkMobil}\n\n` +
+      `Saya ingin informasi lebih lanjut, terima kasih.`
+  } else {
+    message = 'Halo saya tertarik dengan mobil yang ada di website Dealer Mobil Non.'
+  }
+
+  return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
 }

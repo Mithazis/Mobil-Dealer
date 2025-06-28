@@ -104,14 +104,28 @@ export default function ModalMobilForm({ initialData, onClose, onSave }) {
             required
             className="w-full px-4 py-2 border rounded-lg"
           />
-          <input
+          <select
             name="merk"
             placeholder="Merk"
             value={form.merk}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border rounded-lg"
-          />
+            >
+            <option value="" disabled>Pilih Merk</option>
+            <option value="Toyota">Toyota</option>
+            <option value="Daihatsu">Daihatsu</option>
+            <option value="Nissan">Nissan</option>
+            <option value="BMW">BMW</option>
+            <option value="Mercedes-Benz">Mercedes-Benz</option>
+            <option value="Jeep">Jeep</option>
+            <option value="Honda">Honda</option>
+            <option value="Hyundai">Hyundai</option>
+            <option value="Mitsubishi">Mitsubishi</option>
+            <option value="Suzuki">Suzuki</option>
+            <option value="Lexus">Lexus</option>
+            <option value="Isuzu">Isuzu</option>
+          </select>
           <select
             name="tipe"
             value={form.tipe}
@@ -126,6 +140,7 @@ export default function ModalMobilForm({ initialData, onClose, onSave }) {
             <option value="Coupe">Coupe</option>
             <option value="Pickup">Pickup</option>
             <option value="Jeep">Jeep</option>
+            <option value="Hatchback">Hatchback</option>
           </select>
           <input
             name="harga"

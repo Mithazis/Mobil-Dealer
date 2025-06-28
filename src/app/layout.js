@@ -12,7 +12,8 @@ export default function RootLayout({ children }) {
     <html lang="id">
       <body className="bg-gray-50 text-gray-900 font-sans">
         <Header />
-        <main className="min-h-[80vh]">{children}</main>
+        <main className="min-h-[80vh]">{children}
+        </main>
         <Footer />
       </body>
     </html>

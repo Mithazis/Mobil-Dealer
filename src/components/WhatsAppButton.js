@@ -2,8 +2,8 @@
 
 import generateWaLink from '@/utils/generateWaLink'
 
-export default function WhatsAppButton({ namaMobil, fotoMobil, linkMobil }) {
-  const waLink = generateWaLink({ namaMobil, fotoMobil, linkMobil })
+export default function WhatsAppButton({ namaMobil, fotoMobil, linkMobil, customMessage }) {
+  const waLink = generateWaLink({ namaMobil, fotoMobil, linkMobil, customMessage })
 
   return (
     <a
