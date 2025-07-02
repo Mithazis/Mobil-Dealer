@@ -1,11 +1,21 @@
-// src/components/WhatsAppButton.jsx
 import { FaWhatsapp } from 'react-icons/fa';
 
-const WhatsAppButton = ({ mode }) => {
-  // --- GANTI NOMOR INI DENGAN NOMOR ANDA ---
-  const phoneNumber = '6281234567890'; 
-  const message = encodeURIComponent('Halo, saya tertarik dengan mobil yang ada di website Anda. Bisa minta info lebih lanjut?');
-  const waLink = `https://wa.me/${phoneNumber}?text=${message}`;
+const WhatsAppButton = ({ mode, namaMobil, linkMobil }) => {
+  const phoneNumber = '6282117774545';
+  let message;
+
+
+  if (namaMobil && linkMobil) {
+    message = `Halo, saya tertarik dengan mobil "${namaMobil}".\n\nBerikut link mobilnya: ${linkMobil}\n\nApakah unitnya masih tersedia?`;
+  } else {
+ 
+    message = 'Halo, saya ingin bertanya tentang mobil yang ada di website Anda. Bisa minta info lebih lanjut?';
+  }
+
+
+  const encodedMessage = encodeURIComponent(message);
+  const waLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
 
   if (mode === 'floating') {
     return (
@@ -21,7 +31,6 @@ const WhatsAppButton = ({ mode }) => {
     );
   }
 
-  // mode 'homepage'
   return (
     <a 
       href={waLink} 

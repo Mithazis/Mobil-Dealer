@@ -1,10 +1,10 @@
+
 'use client'
 
 import { useState, useEffect } from 'react'
 import MobilSlider from './MobilSlider'
 import WhatsAppButton from './WhatsAppButton'
 import formatRupiah from '@/utils/formatRupiah'
-import generateWaLink from '@/utils/generateWaLink'
 import CustomLightbox from './CustomLightbox'
 
 export default function MobilDetailClient({ mobil }) {
@@ -38,12 +38,6 @@ export default function MobilDetailClient({ mobil }) {
     ? mobil.gambar.map(formatGambar).filter(Boolean)
     : ['/placeholder.png']
 
-  const waLink = generateWaLink({
-    namaMobil: mobil.nama,
-    fotoMobil: gambarFormatted[0],
-    linkMobil: currentUrl,
-  })
-
   return (
     <main className="min-h-screen px-4 py-10 bg-white">
       <div className="max-w-4xl mx-auto flex flex-col gap-6">
@@ -62,7 +56,6 @@ export default function MobilDetailClient({ mobil }) {
 
         <WhatsAppButton
           namaMobil={mobil.nama}
-          fotoMobil={gambarFormatted[0]}
           linkMobil={currentUrl}
         />
       </div>
