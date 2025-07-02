@@ -11,11 +11,11 @@ export async function GET(req) {
     const limit = parseInt(searchParams.get('limit') || '12')
     const skip = (page - 1) * limit
 
-    const keyword = searchParams.get('keyword') || ''
-    const tipe = searchParams.get('tipe') || 'All'
-    const merk = searchParams.get('merk') || 'All'
-    const tahun = searchParams.get('tahun') || 'All'
-    const harga = searchParams.get('harga') || 'All'
+    const keyword = searchParams.get('keyword')
+    const tipe = searchParams.get('tipe')
+    const merk = searchParams.get('merk')
+    const tahun = searchParams.get('tahun')
+    const harga = searchParams.get('harga')
 
     // 🔍 Bangun filter query MongoDB
     const filter = {}
@@ -27,30 +27,34 @@ export async function GET(req) {
       ]
     }
 
-    if (tipe !== 'All') {
-      filter.tipe = { $regex: tipe, $options: 'i' }
+    // Menggunakan regex ^...$ untuk pencocokan kata yang persis (case-insensitive)
+    if (tipe) { // Tidak perlu cek !== 'All' karena frontend sudah tidak mengirimkannya
+      filter.tipe = { $regex: `^${tipe}$`, $options: 'i' }
     }
 
-    if (merk !== 'All') {
-      filter.nama = { $regex: merk, $options: 'i' }
+    // >>> INI BAGIAN YANG DIPERBAIKI <<<
+    if (merk) {
+      // Filter diterapkan ke field 'merk', bukan 'nama'
+      filter.merk = { $regex: `^${merk}$`, $options: 'i' } 
     }
 
-    if (tahun !== 'All') {
+    if (tahun) {
       filter.tahun = parseInt(tahun)
     }
 
-    if (harga !== 'All') {
+    if (harga) {
       if (harga === '0-500') {
-        filter.harga = { $lte: 500_000_000 }
+        filter.harga = { $lte: 500000000 }
       } else if (harga === '500-1000') {
-        filter.harga = { $gt: 500_000_000, $lte: 1_000_000_000 }
+        filter.harga = { $gte: 500000000, $lte: 1000000000 }
       } else if (harga === '1000-2000') {
-        filter.harga = { $gt: 1_000_000_000, $lte: 2_000_000_000 }
+        filter.harga = { $gte: 1000000000, $lte: 2000000000 }
       } else if (harga === '2000+') {
-        filter.harga = { $gt: 2_000_000_000 }
+        filter.harga = { $gte: 2000000000 }
       }
     }
 
+    // Penggunaan Promise.all sudah sangat bagus untuk efisiensi!
     const [data, total] = await Promise.all([
       Mobil.find(filter).skip(skip).limit(limit).sort({ createdAt: -1 }).lean(),
       Mobil.countDocuments(filter),
@@ -74,6 +78,7 @@ export async function GET(req) {
     )
   }
 }
+
 
 export async function POST(req) {
   await connectMongo()

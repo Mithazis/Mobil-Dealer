@@ -92,7 +92,7 @@ export default function HomePage() {
             ].map((item, i) => (
               <motion.div
                 key={i}
-                className="bg-white p-6 rounded-xl shadow text-left hover:shadow-lg transition"
+                className="bg-white p-6 rounded-xl shadow text-left hover:shadow-lg transition cursor-pointer"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.2 + 0.2, duration: 0.6 }}

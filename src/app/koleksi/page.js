@@ -1,5 +1,5 @@
-import { Suspense } from 'react'
 import KoleksiClient from '@/components/KoleksiClient'
+import { Suspense } from 'react'
 
 export default function KoleksiPage() {
   return (
