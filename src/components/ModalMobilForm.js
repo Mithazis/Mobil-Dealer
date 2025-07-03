@@ -13,11 +13,39 @@ export default function ModalMobilForm({ initialData, onClose, onSave }) {
     gambar: [''],
   })
 
+  // --- TAMBAHAN: State untuk menyimpan daftar merk dari API ---
+  const [merkList, setMerkList] = useState([])
+  const [isLoadingMerk, setIsLoadingMerk] = useState(true)
+  // -----------------------------------------------------------
+
+  // --- TAMBAHAN: useEffect untuk mengambil data merk dari API ---
+  useEffect(() => {
+    const fetchMerk = async () => {
+      try {
+        setIsLoadingMerk(true)
+        const response = await fetch('/api/merk')
+        if (!response.ok) {
+          throw new Error('Gagal mengambil data merk')
+        }
+        const data = await response.json()
+        setMerkList(data)
+      } catch (error) {
+        console.error(error)
+        // Jika gagal, setidaknya berikan list kosong
+        setMerkList([])
+      } finally {
+        setIsLoadingMerk(false)
+      }
+    }
+
+    fetchMerk()
+  }, []) // Dependency array kosong agar hanya berjalan sekali saat komponen mount
+  // -------------------------------------------------------------
+
   useEffect(() => {
     if (initialData) {
       const extractId = (url) => {
         if (!url) return ''
-        // Jika sudah ID pendek, kembalikan langsung
         if (!url.includes('http') && url.length < 50) return url
         const match = url.match(/(?:uc\?id=|file\/d\/)([\w-]{10,})/)
         return match ? match[1] : url
@@ -63,13 +91,13 @@ export default function ModalMobilForm({ initialData, onClose, onSave }) {
   const handleSubmit = (e) => {
     e.preventDefault()
 
- const gambarFormatted = form.gambar.map((g) => {
-  if (g.startsWith('http')) {
-    const match = g.match(/(?:\/d\/|id=)([\w-]+)/)
-    return match ? match[1] : g
-  }
-  return g
-})
+    const gambarFormatted = form.gambar.map((g) => {
+      if (g.startsWith('http')) {
+        const match = g.match(/(?:\/d\/|id=)([\w-]+)/)
+        return match ? match[1] : g
+      }
+      return g
+    })
 
     const dataToSubmit = {
       ...form,
@@ -104,28 +132,27 @@ export default function ModalMobilForm({ initialData, onClose, onSave }) {
             required
             className="w-full px-4 py-2 border rounded-lg"
           />
-          <select
-            name="merk"
-            placeholder="Merk"
-            value={form.merk}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border rounded-lg"
-            >
-            <option value="" disabled>Pilih Merk</option>
-            <option value="Toyota">Toyota</option>
-            <option value="Daihatsu">Daihatsu</option>
-            <option value="Nissan">Nissan</option>
-            <option value="BMW">BMW</option>
-            <option value="Mercedes-Benz">Mercedes-Benz</option>
-            <option value="Jeep">Jeep</option>
-            <option value="Honda">Honda</option>
-            <option value="Hyundai">Hyundai</option>
-            <option value="Mitsubishi">Mitsubishi</option>
-            <option value="Suzuki">Suzuki</option>
-            <option value="Lexus">Lexus</option>
-            <option value="Isuzu">Isuzu</option>
-          </select>
+          
+          {/* --- MODIFIKASI: Mengubah <select> menjadi <input> dengan <datalist> --- */}
+          <div>
+            <input
+              list="merk-list"
+              name="merk"
+              placeholder={isLoadingMerk ? 'Memuat merk...' : 'Pilih atau ketik merk baru'}
+              value={form.merk}
+              onChange={handleChange}
+              required
+              disabled={isLoadingMerk}
+              className="w-full px-4 py-2 border rounded-lg"
+            />
+            <datalist id="merk-list">
+              {merkList.map((merk) => (
+                <option key={merk} value={merk} />
+              ))}
+            </datalist>
+          </div>
+          {/* ----------------------------------------------------------------------- */}
+          
           <select
             name="tipe"
             value={form.tipe}
@@ -168,7 +195,6 @@ export default function ModalMobilForm({ initialData, onClose, onSave }) {
             className="w-full px-4 py-2 border rounded-lg"
           />
 
-          {/* Input Gambar */}
           <div className="space-y-2">
             <label className="font-medium">ID Gambar (Google Drive)</label>
             {form.gambar.map((url, i) => (

@@ -27,6 +27,7 @@ const MobilGrid = ({
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3, delay: (index % limit) * 0.05 }}
             >
+              
               <MobilCard mobil={{ ...mobil, harga: formatRupiah(mobil.harga) }} />
             </motion.div>
           ))
