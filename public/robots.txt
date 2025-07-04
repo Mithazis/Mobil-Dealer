@@ -1,9 +1,0 @@
-# *
-User-agent: *
-Allow: /
-
-# Host
-Host: https://dealer-mobil-non.vercel.app
-
-# Sitemaps
-Sitemap: https://dealer-mobil-non.vercel.app/sitemap.xml
