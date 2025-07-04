@@ -7,7 +7,7 @@ import Image from 'next/image'
 import ModalMobilForm from '@/components/ModalMobilForm'
 
 export default function DashboardPage() {
-  const router = useRouter() // ✅ PENTING: inisialisasi router
+  const router = useRouter()
 
   const [data, setData] = useState([])
   const [modalOpen, setModalOpen] = useState(false)

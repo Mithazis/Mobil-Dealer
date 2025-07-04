@@ -18,8 +18,8 @@ export default function LoginPage() {
 
     const data = await res.json()
     if (res.ok) {
-      localStorage.setItem('admin', 'true') // Simpan status login
-      router.push('/mithazis') // Ganti ke dashboard admin
+      localStorage.setItem('admin', 'true')
+      router.push('/mithazis')
     } else {
       setError(data.error || 'Login gagal')
     }
