@@ -4,7 +4,9 @@ import Footer from '@/components/Footer'
 
 export const metadata = {
   title: 'Dealer Mobil Non | Mobil Impian Anda',
-  description: 'Website jual beli mobil modern, profesional, dan terpercaya.'
+  description: 'Website jual beli mobil modern, profesional, dan terpercaya.',
+  other: {
+    "google-site-verification": "PRFL-MeQYRkwAETKHRgC8GwNWxUZvTF-4MY-0GIDUuQ"}
 }
 
 export default function RootLayout({ children }) {
